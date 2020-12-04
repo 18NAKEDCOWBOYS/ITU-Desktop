@@ -4,9 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ITU_Desktop"
+        xmlns:views="clr-namespace:ITU_Desktop.Views"
+        xmlns:viewmodels="clr-namespace:ITU_Desktop.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Balónovač 3000" Height="1080" Width="1920">
+
+    <Window.Resources>
+        <DataTemplate x:Name="FlightListViewTemplate" DataType="{x:Type viewmodels:FlightListViewModel}">
+            <views:FlightList DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="WorkerListViewTemplate" DataType="{x:Type viewmodels:WorkerListViewModel}">
+            <views:WorkerList DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="907*" />
+            <RowDefinition Height="102*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="335*"/>
+            <ColumnDefinition Width="457*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Background="Gray" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" >
+                <Button Content="Seznam letů" FontSize="20" Padding="3" Margin="2" Click="FlightListView_clicked"/>
+                <Button Content="Seznam zaměstnanců" FontSize="20" Padding="3" Margin="2" Click="WorkerListView_clicked"/>
+            </StackPanel>
+        </DockPanel>
+
+        <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding}" Grid.RowSpan="2"/>
     </Grid>
 </Window>

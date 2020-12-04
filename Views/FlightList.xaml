@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ITU_Desktop.Views.FlightList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ITU_Desktop.Views"
+             xmlns:viewmodels="clr-namespace:ITU_Desktop.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewmodels:FlightListViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Name="fli" 
+                  FontSize="20"
+                  AlternatingRowBackground="Gray" 
+                  IsReadOnly="True" 
+                  CanUserAddRows="False" 
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding FlightsObj}"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Stav" Binding="{Binding eventTypeObj.displayString}"/>
+                <DataGridTextColumn Header="Čas setkání" Binding="{Binding meetDate}"/>
+                <DataGridTextColumn Header="Čas odletu" Binding="{Binding startDate}"/>
+                <DataGridTextColumn Header="Místo setkání" Binding="{Binding meetPoint}"/>
+                <DataGridTextColumn Header="Místo odletu" Binding="{Binding startPoint}"/>
+                <DataGridTextColumn Header="Pilot" Binding="{Binding pilotObj.name}"/>
+                <DataGridTextColumn Header="Doprovod" Binding="{Binding escortObj.name}"/>
+                <DataGridTextColumn Header="Počet registrovaných pilotů" Binding="{Binding registeredPilotIds.Count}"/>
+                <DataGridTextColumn Header="Počet registrovaných doprovodů" Binding="{Binding registeredEscortIds.Count}"/>
+                <DataGridTextColumn Header="Počet zákazníků" Binding="{Binding customerCount}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Přidat nový let" Grid.Row="1" Grid.Column="0" Command="{Binding OpenAddFlightWindowCommand}"/>
+        <Button Content="Odebrat let" Grid.Row="1" Grid.Column="1" Command="{Binding RemoveFlightCommand}"/>
+        <Button Content="Upravit let" Grid.Row="1" Grid.Column="2" Command="{Binding OpenCustomizeFlightWindowCommand}"/>
+
+    </Grid>
+</UserControl>
