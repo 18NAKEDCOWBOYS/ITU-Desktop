@@ -23,6 +23,7 @@ namespace ITU_Desktop.ViewModels
 {
     public class FlightListViewModel : INotifyPropertyChanged
     {
+        private static HttpClient Client;
 
         private ObservableCollection<Event> _flightsObj;
 
@@ -47,6 +48,8 @@ namespace ITU_Desktop.ViewModels
 
         public FlightListViewModel()
         {
+            Client = new HttpClient();
+
             OpenCustomizeFlightWindowCommand = new RelayCommand(OpenCustomizeFlightWindow);
             OpenAddFlightWindowCommand = new RelayCommand(OpenAddFlightWindow);
             CloseCustomizeFlightWindowCommand = new RelayCommand(CloseCustomizeFlightWindow);
@@ -84,11 +87,11 @@ namespace ITU_Desktop.ViewModels
             RefreshEvents();
         }
 
-        public void RefreshEvents()
+        public async void RefreshEvents()
         {
-            string flights = GetData(@"https://ituapi.herokuapp.com/events");
-            string users = GetData(@"https://ituapi.herokuapp.com/users");
-            string eventTypes = GetData(@"https://ituapi.herokuapp.com/event-types");
+            string flights = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/events");
+            string users = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/users");
+            string eventTypes = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/event-types");
             FlightsObj = JsonConvert.DeserializeObject<ObservableCollection<Event>>(flights);
             List<User> usersObj = JsonConvert.DeserializeObject<List<User>>(users);
             List<EventType> eventTypesObj = JsonConvert.DeserializeObject<List<EventType>>(eventTypes);
