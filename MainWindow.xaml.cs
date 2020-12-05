@@ -33,7 +33,8 @@ namespace ITU_Desktop
         {
 
             InitializeComponent();
-            
+            DataContext= new FlightListViewModel();
+
         }
 
         private void FlightListView_clicked(object sender, RoutedEventArgs e)

@@ -23,7 +23,7 @@ namespace ITU_Desktop.ViewModels
 {
     public class FlightListViewModel : INotifyPropertyChanged
     {
-        private static HttpClient Client;
+        private static HttpClient _client;
 
         private ObservableCollection<Event> _flightsObj;
 
@@ -48,7 +48,7 @@ namespace ITU_Desktop.ViewModels
 
         public FlightListViewModel()
         {
-            Client = new HttpClient();
+            _client = new HttpClient();
 
             OpenCustomizeFlightWindowCommand = new RelayCommand(OpenCustomizeFlightWindow);
             OpenAddFlightWindowCommand = new RelayCommand(OpenAddFlightWindow);
@@ -89,9 +89,9 @@ namespace ITU_Desktop.ViewModels
 
         public async void RefreshEvents()
         {
-            string flights = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/events");
-            string users = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/users");
-            string eventTypes = await Client.GetStringAsync(@"https://ituapi.herokuapp.com/event-types");
+            string flights = await _client.GetStringAsync(@"https://ituapi.herokuapp.com/events");
+            string users = await _client.GetStringAsync(@"https://ituapi.herokuapp.com/users");
+            string eventTypes = await _client.GetStringAsync(@"https://ituapi.herokuapp.com/event-types");
             FlightsObj = JsonConvert.DeserializeObject<ObservableCollection<Event>>(flights);
             List<User> usersObj = JsonConvert.DeserializeObject<List<User>>(users);
             List<EventType> eventTypesObj = JsonConvert.DeserializeObject<List<EventType>>(eventTypes);
@@ -102,25 +102,6 @@ namespace ITU_Desktop.ViewModels
                 flight.escortObj = usersObj.Find(x => x.id == flight.escortId);
                 flight.eventTypeObj = eventTypesObj.Find(x => x.id == flight.eventType);
             }
-        }
-
-
-
-        private string GetData(string url)
-        {
-            string html = string.Empty;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.AutomaticDecompression = DecompressionMethods.GZip;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-
-            return html;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

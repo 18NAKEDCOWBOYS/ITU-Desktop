@@ -10,6 +10,57 @@
         Title="Balónovač 3000" Height="1080" Width="1920">
 
     <Window.Resources>
+        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}" >
+                <Setter Property="Background" Value="LightSlateGray" />
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="-1,0" />
+                <Setter Property="Padding" Value="5,0" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Width" Value="auto"/>
+                <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Height" Value="70"></Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#27c4c4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#17a2b8" Duration="0:0:0.5" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"></ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#27c4c4" Duration="0:0:0.5" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"></ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <DataTemplate x:Name="FlightListViewTemplate" DataType="{x:Type viewmodels:FlightListViewModel}">
             <views:FlightList DataContext="{Binding}"/>
         </DataTemplate>
@@ -19,23 +70,19 @@
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="907*" />
-            <RowDefinition Height="102*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="335*"/>
-            <ColumnDefinition Width="457*"/>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+            <ColumnDefinition Width="85*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Background="Gray" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" >
-                <Button Content="Seznam letů" FontSize="20" Padding="3" Margin="2" Click="FlightListView_clicked"/>
-                <Button Content="Seznam zaměstnanců" FontSize="20" Padding="3" Margin="2" Click="WorkerListView_clicked"/>
+        <DockPanel Background="#27c4c4" Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Vertical">
+                <Image Source="icons/air-hot-balloon.png"  Width="150"></Image>
+                <Button Content="Seznam letů" Click="FlightListView_clicked"/>
+                <Button Content="Seznam zaměstnanců" Click="WorkerListView_clicked"/>
             </StackPanel>
         </DockPanel>
 
-        <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding}" Grid.RowSpan="2"/>
+        <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding}"/>
     </Grid>
 </Window>
