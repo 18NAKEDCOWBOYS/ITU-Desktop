@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Projects\fit\ITU\ITU-Desktop\App.xaml
-51745170864
-1481468409
-15818854999
+8-1826523574
+2-1833381962
+21-481307736
 128-454527881
-AddFlightWindow.xaml;CustomizeFlightWindow.xaml;MainWindow.xaml;Views\FlightList.xaml;Views\WorkerList.xaml;
+AddFlightWindow.xaml;AddWorkerWindow.xaml;AssignCrewWindow.xaml;CustomizeFlightWindow.xaml;CustomizeWorkerWindow.xaml;MainWindow.xaml;Views\FlightList.xaml;Views\WorkerList.xaml;
 
-True
+False
 

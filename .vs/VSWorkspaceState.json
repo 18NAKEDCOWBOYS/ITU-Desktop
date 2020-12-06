@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ViewModels",
+    "\\Views"
   ],
+  "SelectedNode": "\\ViewModels\\AddFlightWindowViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

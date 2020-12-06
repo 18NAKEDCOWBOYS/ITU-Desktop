@@ -4,13 +4,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ITU_Desktop.Views"
+             xmlns:viewModels="clr-namespace:ITU_Desktop.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:WorkerListViewModel}">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
 
+        <DataGrid x:Name="workerList" 
+                  FontSize="15"
+                  AlternatingRowBackground="LightBlue" 
+                  CanUserResizeRows="False"
+                  SelectionMode="Single"
+                  IsReadOnly="True" 
+                  CanUserAddRows="False" 
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding WorkersObj}"
+                  SelectedItem="{Binding SelectedWorker}"
+                  Grid.Row="0"
+                  Grid.Column="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Typ" Binding="{Binding typeObj.displayString}" />
+                <DataGridTextColumn Header="Jméno" Binding="{Binding name}" />
+                <DataGridTextColumn Header="Telefoní číslo" Binding="{Binding phone}" />
+                <DataGridTextColumn Header="E-mail" Binding="{Binding email}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
-        <DataGrid Name="usr" IsReadOnly="True" ItemsSource="{Binding usr}"></DataGrid>
-
+        <DockPanel Background="#27c4c4" Grid.Row="1" Grid.Column="0" Margin="-1,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding OpenAddWorkerWindowCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="../icons/plus.png"  MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Přidat uživatele" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding RemoveWorkerCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="../icons/minus (1).png"  MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Odebrat uživatele" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding OpenCustomizeWorkerWindowCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="../icons/gear.png"  MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Upravit uživatele" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
 
     </Grid>
 </UserControl>

@@ -34,18 +34,26 @@ namespace ITU_Desktop
 
             InitializeComponent();
             DataContext= new FlightListViewModel();
+            BorderOfFlights.Background = new SolidColorBrush(Color.FromArgb(255, 23, 162, 184));
 
         }
 
         private void FlightListView_clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new FlightListViewModel();
+            BorderOfFlights.Background = new SolidColorBrush(Color.FromArgb(255, 23, 162, 184));
+            BorderOfWorkers.Background = new SolidColorBrush(Color.FromArgb(255,39,196,196));
+
 
         }
 
         private void WorkerListView_clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new WorkerListViewModel();
+            BorderOfWorkers.Background = new SolidColorBrush(Color.FromArgb(255, 23, 162, 184));
+            BorderOfFlights.Background = new SolidColorBrush(Color.FromArgb(255, 39, 196, 196));
+
+
         }
     }
 

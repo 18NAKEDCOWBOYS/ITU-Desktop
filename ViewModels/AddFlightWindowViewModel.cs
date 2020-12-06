@@ -14,37 +14,35 @@ namespace ITU_Desktop.ViewModels
     class AddFlightWindowViewModel
     {
         public ICommand CloseAddFlightWindowCommand { get; }
-        public ICommand AddNewFlightCommand { get; }
+        public ICommand AddFlightCommand { get; }
 
-        public Event NewFlight { get; set; }
+        public Event Flight { get; set; }
 
         public AddFlightWindowViewModel(ICommand closeAddFlightWindowCommand)
         {
-            AddNewFlightCommand = new RelayCommand(AddNewFlight);
-            NewFlight = new Event();
+            AddFlightCommand = new RelayCommand(AddFlight);
+            Flight = new Event();
             CloseAddFlightWindowCommand = closeAddFlightWindowCommand;
+           
         }
 
-        private async void AddNewFlight()
+        private async void AddFlight()
         {
-            EventToLoad newFlightToLoad = new EventToLoad()
+            string json = JsonConvert.SerializeObject(new
             {
                 registeredEscortIds = new List<int>(),
                 registeredPilotIds = new List<int>(),
                 eventType = 1,
-                customerCount = NewFlight.customerCount,
-                id = NewFlight.id,
-                meetPoint = NewFlight.meetPoint,
-                startPoint = NewFlight.startPoint,
-                pilotId = NewFlight.pilotId,
-                escortId = NewFlight.escortId,
-                meetDate = NewFlight.meetDate,
-                startDate = NewFlight.startDate,
-                customerPhone = NewFlight.customerPhone,
-                description = NewFlight.description
-            };
-
-            string json = JsonConvert.SerializeObject(newFlightToLoad);
+                customerCount = Flight.customerCount,
+                meetPoint = Flight.meetPoint,
+                startPoint = Flight.startPoint,
+                pilotId = Flight.pilotId,
+                escortId = Flight.escortId,
+                meetDate = Flight.meetDate,
+                startDate = Flight.startDate,
+                customerPhone = Flight.customerPhone,
+                description = Flight.description
+            });
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 

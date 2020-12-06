@@ -91,13 +91,25 @@
     <Compile Include="AddFlightWindow.xaml.cs">
       <DependentUpon>AddFlightWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddWorkerWindow.xaml.cs">
+      <DependentUpon>AddWorkerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssignCrewWindow.xaml.cs">
+      <DependentUpon>AssignCrewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomizeFlightWindow.xaml.cs">
       <DependentUpon>CustomizeFlightWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomizeWorkerWindow.xaml.cs">
+      <DependentUpon>CustomizeWorkerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AddWorkerWindowViewModel.cs" />
+    <Compile Include="ViewModels\AssignCrewWindowViewModel.cs" />
     <Compile Include="ViewModels\CustomizeFlightWindowViewModel.cs" />
     <Compile Include="Models\jsonObjects.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\AddFlightWindowViewModel.cs" />
+    <Compile Include="ViewModels\CustomizeWorkerWindowViewModel.cs" />
     <Compile Include="ViewModels\FlightListViewModel.cs" />
     <Compile Include="ViewModels\WorkerListViewModel.cs" />
     <Compile Include="Views\FlightList.xaml.cs">
@@ -110,7 +122,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddWorkerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssignCrewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomizeFlightWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomizeWorkerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,6 +188,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="icons\diskette.png" />
+    <Resource Include="icons\cancel.png" />
+    <Content Include="icons\cancel.svg" />
+    <Resource Include="icons\task.png" />
+    <Resource Include="icons\group.png" />
+    <Resource Include="icons\hot-air-balloon.png" />
     <Resource Include="icons\air-hot-balloon.png" />
     <Resource Include="icons\gear.png" />
     <Resource Include="icons\minus %281%29.png" />

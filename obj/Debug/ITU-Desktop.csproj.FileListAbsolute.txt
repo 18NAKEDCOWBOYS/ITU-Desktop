@@ -53,3 +53,9 @@ D:\Projects\fit\ITU\ITU-Desktop\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 D:\Projects\fit\ITU\ITU-Desktop\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 D:\Projects\fit\ITU\ITU-Desktop\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\ITU-Desktop_Content.g.cs
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\AssignCrewWindow.g.cs
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\AssignCrewWindow.baml
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\AddWorkerWindow.g.cs
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\CustomizeWorkerWindow.g.cs
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\AddWorkerWindow.baml
+D:\Projects\fit\ITU\ITU-Desktop\obj\Debug\CustomizeWorkerWindow.baml

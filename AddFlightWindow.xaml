@@ -7,59 +7,113 @@
         xmlns:viewModels="clr-namespace:ITU_Desktop.ViewModels"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddFlightWindow" Height="450" Width="800"        
-        d:DataContext="{d:DesignInstance viewModels:AddFlightWindowViewModel}">
+        Title="Přidat nový let" Height="450" Width="800"        
+        d:DataContext="{d:DesignInstance viewModels:AddFlightWindowViewModel}"
+        Icon="icons/air-hot-balloon.png">
     <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="10,10"/>
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Height" Value="30"/>
+
+            <Setter Property="FontSize" Value="19"/>
+
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#17a2b8" Duration="0:0:0.3" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"></ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Transparent" Duration="0:0:0.3" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"></ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Místo setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Row="1" Grid.Column="0" Content="Místo vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Row="2" Grid.Column="0" Content="Číslo na zákazníka" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>        
-        <Label Grid.Row="3" Grid.Column="0" Content="Popisek" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Row="0" Grid.Column="2" Content="Čas setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Row="1" Grid.Column="2" Content="Čas vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Row="2" Grid.Column="2" Content="Počet zákazníků" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Místo setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Content="Místo vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="Číslo na zákazníka" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>        
+            <Label Grid.Row="3" Grid.Column="0" Content="Popisek" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="0" Grid.Column="2" Content="Čas setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="1" Grid.Column="2" Content="Čas vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="2" Grid.Column="2" Content="Počet zákazníků" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+            <TextBox Margin="5" VerticalContentAlignment="Center" Height="30"  Grid.Row="0" Grid.Column="1" Text="{Binding Flight.meetPoint }"></TextBox>
+            <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="1" Grid.Column="1" Text="{Binding Flight.startPoint}"></TextBox>
+            <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="2" Grid.Column="1" Text="{Binding Flight.customerPhone}"></TextBox>
+            <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Flight.description}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            <xctk:DateTimePicker Margin="5" Grid.Row="0" Height="30"  Grid.Column="3" Format="FullDateTime" Value="{Binding Flight.meetDate}" ></xctk:DateTimePicker>
+            <xctk:DateTimePicker Margin="5" Grid.Row="1" Height="30" Grid.Column="3" Format="FullDateTime" Value="{Binding Flight.startDate}" ></xctk:DateTimePicker>
+
+            <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="2" Grid.Column="3" Text="{Binding Flight.customerCount}"></TextBox>
+        </Grid>
 
 
-
-        <TextBox Margin="5" VerticalContentAlignment="Center" Height="30"  Grid.Row="0" Grid.Column="1" Text="{Binding NewFlight.meetPoint }"></TextBox>
-        <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="1" Grid.Column="1" Text="{Binding NewFlight.startPoint}"></TextBox>
-        <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="2" Grid.Column="1" Text="{Binding NewFlight.customerPhone}"></TextBox>
-        <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding NewFlight.description}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-        <xctk:DateTimePicker Margin="5" Grid.Row="0" Height="30"  Grid.Column="3" Format="FullDateTime" Value="{Binding NewFlight.meetDate}" ></xctk:DateTimePicker>
-        <xctk:DateTimePicker Margin="5" Grid.Row="1" Height="30" Grid.Column="3" Format="FullDateTime" Value="{Binding NewFlight.startDate}" ></xctk:DateTimePicker>
-
-        <TextBox Margin="5" VerticalContentAlignment="Center" Height="30" Grid.Row="2" Grid.Column="3" Text="{Binding NewFlight.customerCount}"></TextBox>
-
-        <StackPanel Grid.Row="4" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Přidat" Command="{Binding AddNewFlightCommand}"/>
-            <Button Content="Zrušit" Command="{Binding CloseAddFlightWindowCommand}"/>
-        </StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Background="#27c4c4" Margin="-1,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding AddFlightCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="icons/diskette.png" MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Uložit" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding CloseAddFlightWindowCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="icons/cancel.png" MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Zrušit" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>

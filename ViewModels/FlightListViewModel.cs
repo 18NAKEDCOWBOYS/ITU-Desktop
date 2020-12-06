@@ -17,12 +17,14 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using ITU_Desktop.Annotations;
 
 namespace ITU_Desktop.ViewModels
 {
     public class FlightListViewModel : INotifyPropertyChanged
     {
+
         private static HttpClient _client;
 
         private ObservableCollection<Event> _flightsObj;
@@ -40,20 +42,29 @@ namespace ITU_Desktop.ViewModels
         
         public AddFlightWindow AddFlightWindow { get; set; }
         public CustomizeFlightWindow CustomizeFlightWindow { get; set; }
+        public AssignCrewWindow AssignCrewWindow { get; set; }
         public ICommand RemoveFlightCommand { get; }
         public ICommand OpenCustomizeFlightWindowCommand { get; } 
         public ICommand OpenAddFlightWindowCommand { get; }
+        public ICommand OpenAssignCrewWindowCommand { get; }
         public ICommand CloseCustomizeFlightWindowCommand { get; }
         public ICommand CloseAddFlightWindowCommand { get; }
+        public ICommand CloseAssignCrewWindowCommand { get; }
+        public Event SelectedFlight { get; set; }
+
+
 
         public FlightListViewModel()
         {
             _client = new HttpClient();
+            SelectedFlight = new Event();
 
             OpenCustomizeFlightWindowCommand = new RelayCommand(OpenCustomizeFlightWindow);
             OpenAddFlightWindowCommand = new RelayCommand(OpenAddFlightWindow);
+            OpenAssignCrewWindowCommand = new RelayCommand(OpenAssignCrewWindow);
             CloseCustomizeFlightWindowCommand = new RelayCommand(CloseCustomizeFlightWindow);
             CloseAddFlightWindowCommand = new RelayCommand(CloseAddFlightWindow);
+            CloseAssignCrewWindowCommand = new RelayCommand(CloseAssignCrewWindow);
             RemoveFlightCommand = new RelayCommand(RemoveFlight);
 
             RefreshEvents();
@@ -61,19 +72,49 @@ namespace ITU_Desktop.ViewModels
 
 
 
+        private void OpenAssignCrewWindow()
+        {
+            if (SelectedFlight.id != null)
+            {
+                AssignCrewWindow = new AssignCrewWindow(CloseAssignCrewWindowCommand, SelectedFlight);
+                AssignCrewWindow.Show();
+            }
+        }
+
         private void OpenCustomizeFlightWindow()
         {
-            CustomizeFlightWindow = new CustomizeFlightWindow(CloseCustomizeFlightWindowCommand);
-            CustomizeFlightWindow.Show();
+            if (SelectedFlight.id!=null)
+            {
+                CustomizeFlightWindow = new CustomizeFlightWindow(CloseCustomizeFlightWindowCommand, SelectedFlight);
+                CustomizeFlightWindow.Show();
+            }
         }
         private void OpenAddFlightWindow()
         {
-            AddFlightWindow = new AddFlightWindow(CloseAddFlightWindowCommand);
-            AddFlightWindow.Show();
+            if (SelectedFlight.id != null)
+            {
+                AddFlightWindow = new AddFlightWindow(CloseAddFlightWindowCommand);
+                AddFlightWindow.Show();
+            }
         }
-        private void RemoveFlight()
+        private async void RemoveFlight()
         {
-            throw new NotImplementedException();
+            if (SelectedFlight.id != null)
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var response =
+                        await httpClient.DeleteAsync(@"https://ituapi.herokuapp.com/events/" + SelectedFlight.id);
+
+                    if (response != null)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                    }
+
+                }
+
+                RefreshEvents();
+            }
         }
 
         private void CloseAddFlightWindow()
@@ -84,6 +125,11 @@ namespace ITU_Desktop.ViewModels
         private void CloseCustomizeFlightWindow()
         {
             CustomizeFlightWindow.Close();
+            RefreshEvents();
+        }
+        private void CloseAssignCrewWindow()
+        {
+            AssignCrewWindow.Close();
             RefreshEvents();
         }
 
@@ -101,6 +147,20 @@ namespace ITU_Desktop.ViewModels
                 flight.pilotObj = usersObj.Find(x => x.id == flight.pilotId); 
                 flight.escortObj = usersObj.Find(x => x.id == flight.escortId);
                 flight.eventTypeObj = eventTypesObj.Find(x => x.id == flight.eventType);
+
+                flight.registeredEscortObj = new List<User>();
+                flight.registeredPilotObj = new List<User>();
+
+                foreach (int user in flight.registeredEscortIds)
+                {
+                    flight.registeredEscortObj.Add(usersObj.Find(x => x.id == user));
+                }
+
+                foreach (int user in flight.registeredPilotIds)
+                {
+                    flight.registeredPilotObj.Add(usersObj.Find(x => x.id == user));                    
+                }
+
             }
         }
 

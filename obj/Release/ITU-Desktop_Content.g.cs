@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/cancel.svg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/minus.svg")]
 
 

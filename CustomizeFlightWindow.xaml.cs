@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ITU_Desktop.Models;
 using ITU_Desktop.ViewModels;
 
 namespace ITU_Desktop
@@ -20,10 +21,10 @@ namespace ITU_Desktop
     /// </summary>
     public partial class CustomizeFlightWindow : Window
     {
-        public CustomizeFlightWindow(ICommand closeCustomizeFlightWindowCommand)
+        public CustomizeFlightWindow(ICommand closeCustomizeFlightWindowCommand, Event flight)
         {
             InitializeComponent();
-            DataContext=new CustomizeFlightWindowViewModel(closeCustomizeFlightWindowCommand);
+            DataContext=new CustomizeFlightWindowViewModel(closeCustomizeFlightWindowCommand, flight);
         }
     }
 }

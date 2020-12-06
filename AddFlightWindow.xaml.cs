@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ITU_Desktop.Models;
 using ITU_Desktop.ViewModels;
 
 namespace ITU_Desktop

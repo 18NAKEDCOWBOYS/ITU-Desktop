@@ -6,24 +6,26 @@
              xmlns:local="clr-namespace:ITU_Desktop.Views"
              xmlns:viewmodels="clr-namespace:ITU_Desktop.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="1920" d:DesignWidth="1080" d:DataContext="{d:DesignInstance viewmodels:FlightListViewModel}">
+             d:DesignHeight="1080" d:DesignWidth="1920" d:DataContext="{d:DesignInstance viewmodels:FlightListViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Name="fli" 
+        <DataGrid Name="flightList" 
                   FontSize="15"
-                  AlternatingRowBackground="#1926F5FF" 
+                  AlternatingRowBackground="LightBlue" 
                   CanUserResizeRows="False"
+                  SelectionMode="Single"
                   IsReadOnly="True" 
                   CanUserAddRows="False" 
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding FlightsObj}"
+                  SelectedItem="{Binding SelectedFlight}"
                   Grid.Row="0"
                   Grid.Column="0">
-            <DataGrid.Columns >
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Stav" Binding="{Binding eventTypeObj.displayString}" />
                 <DataGridTextColumn Header="Čas setkání" Binding="{Binding meetDate}"/>
                 <DataGridTextColumn Header="Čas odletu" Binding="{Binding startDate}"/>
@@ -38,7 +40,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <DockPanel Background="#27c4c4" Grid.Row="1" Grid.Column="0" Margin="-1,0,0,0">
+        <DockPanel x:Name="lolu" Background="#27c4c4" Grid.Row="1" Grid.Column="0" Margin="-1,0,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Command="{Binding OpenAddFlightWindowCommand}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
@@ -56,6 +58,12 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
                         <Image Source="../icons/gear.png"  MaxHeight="30" Margin="5"></Image>
                         <TextBlock Text="Upravit let" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding OpenAssignCrewWindowCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Image Source="../icons/task.png"  MaxHeight="30" Margin="5"></Image>
+                        <TextBlock Text="Přiřadit posádku" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
