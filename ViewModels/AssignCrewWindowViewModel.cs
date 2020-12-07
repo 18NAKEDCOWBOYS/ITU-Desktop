@@ -17,22 +17,43 @@ namespace ITU_Desktop.ViewModels
         public ICommand AssignFlightCommand { get; }
 
         public Event Flight { get; set; }
-        public AssignCrewWindowViewModel(ICommand closeAssignCrewWindowCommand, Event selectedFlight)
+
+        public List<EventType> EventTypesObj { get; set; }
+
+        public AssignCrewWindowViewModel(ICommand closeAssignCrewWindowCommand, Event selectedFlight, List<EventType> eventTypesObj)
         {
             Flight = selectedFlight;
+            EventTypesObj=eventTypesObj;
             CloseAssignCrewWindowCommand = closeAssignCrewWindowCommand;
             AssignFlightCommand = new RelayCommand(AssignFlight);
         }
 
         private async void AssignFlight()
         {
+            int? escortId=null;
+            int? pilotId=null;
+            int? eventType = null;
+
+            if (Flight.escortObj!=null)
+            {
+                escortId = Flight.escortObj.id;
+            }if (Flight.eventTypeObj!= null)
+            {
+                eventType = Flight.eventTypeObj.id;
+            }
+            if (Flight.pilotObj!=null)
+            {
+                pilotId = Flight.pilotObj.id;
+            }
+
+
             string json = JsonConvert.SerializeObject(new
             {
-                escortId = Flight.escortObj.id,
-                pilotId = Flight.pilotObj.id,
+                escortId = escortId,
+                pilotId = pilotId,
                 registeredEscortIds = Flight.registeredEscortIds,
                 registeredPilotIds = Flight.registeredPilotIds,
-                eventType = Flight.eventType,
+                eventType = eventType,
                 customerCount = Flight.customerCount,
                 meetPoint = Flight.meetPoint,
                 startPoint = Flight.startPoint,

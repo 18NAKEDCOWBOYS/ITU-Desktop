@@ -21,10 +21,10 @@ namespace ITU_Desktop
     /// </summary>
     public partial class CustomizeFlightWindow : Window
     {
-        public CustomizeFlightWindow(ICommand closeCustomizeFlightWindowCommand, Event flight)
+        public CustomizeFlightWindow(ICommand closeCustomizeFlightWindowCommand, Event flight, List<EventType> eventTypesObj)
         {
             InitializeComponent();
-            DataContext=new CustomizeFlightWindowViewModel(closeCustomizeFlightWindowCommand, flight);
+            DataContext=new CustomizeFlightWindowViewModel(closeCustomizeFlightWindowCommand, flight, eventTypesObj);
         }
     }
 }

@@ -21,10 +21,10 @@ namespace ITU_Desktop
     /// </summary>
     public partial class AssignCrewWindow : Window
     {
-        public AssignCrewWindow(ICommand closeAssignCrewWindowCommand, Event selectedFlight)
+        public AssignCrewWindow(ICommand closeAssignCrewWindowCommand, Event selectedFlight, List<EventType> eventTypesObj)
         {
             InitializeComponent();
-            DataContext = new AssignCrewWindowViewModel(closeAssignCrewWindowCommand, selectedFlight);
+            DataContext = new AssignCrewWindowViewModel(closeAssignCrewWindowCommand, selectedFlight, eventTypesObj);
         }
     }
 }

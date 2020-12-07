@@ -96,7 +96,7 @@
 
         <DockPanel Grid.Row="1" Grid.Column="0" Background="#27c4c4" Margin="-1,0,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Command="{Binding CustomizeWorker}">
+                <Button Command="{Binding CustomizeWorkerCommand}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
                         <Image Source="icons/diskette.png" MaxHeight="30" Margin="5"></Image>
                         <TextBlock Text="Uložit" VerticalAlignment="Center"></TextBlock>

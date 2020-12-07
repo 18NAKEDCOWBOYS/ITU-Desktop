@@ -71,6 +71,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
 
                 <RowDefinition Height="3*"></RowDefinition>
 
@@ -82,33 +83,37 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Místo setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Grid.Row="1" Grid.Column="0" Content="Místo vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Grid.Row="2" Grid.Column="0" Content="Číslo na zákazníka" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Grid.Row="3" Grid.Column="0" Content="Počet zákazníků" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Grid.Row="4" Grid.Column="0" Content="Popisek" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 
+            <Label Grid.Row="0" Grid.Column="0" Content="Typ letu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="Místo setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="3" Grid.Column="0" Content="Místo vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="4" Grid.Column="0" Content="Číslo na zákazníka" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="6" Grid.Column="0" Content="Popisek" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+            
             <Label Grid.Row="0" Grid.Column="2" Content="Čas setkání" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             <Label Grid.Row="1" Grid.Column="2" Content="Čas vzletu" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             <Label Grid.Row="2" Grid.Column="2" Content="Zaregistrovaní piloti" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             <Label Grid.Row="3" Grid.Column="2" Content="Zaregistrovaní doprovodi" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="4" Grid.Column="2" Content="Počet zákazníků" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 
 
 
 
-            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30"  Grid.Row="0" Grid.Column="1" Text="{Binding Flight.meetPoint }"></TextBox>
-            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="1" Grid.Column="1" Text="{Binding Flight.startPoint}"></TextBox>
-            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="2" Grid.Column="1" Text="{Binding Flight.customerPhone}"></TextBox>
-            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="3" Grid.Column="1" Text="{Binding Flight.customerCount}"></TextBox>
-            <TextBox Margin="5" IsReadOnly="True" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Flight.description}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            <ComboBox Margin="5" VerticalContentAlignment="Center" FontSize="15" Grid.Row="0" Grid.Column="1" Height="40" ItemsSource="{Binding EventTypesObj}" DisplayMemberPath="displayString" SelectedItem="{Binding Flight.eventTypeObj}" ></ComboBox>
+            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30"  Grid.Row="2" Grid.Column="1" Text="{Binding Flight.meetPoint }"></TextBox>
+            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="3" Grid.Column="1" Text="{Binding Flight.startPoint}"></TextBox>
+            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="4" Grid.Column="1" Text="{Binding Flight.customerPhone}"></TextBox>
+            <TextBox Margin="5" IsReadOnly="True" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Flight.description}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            
+            
+           
+            <ComboBox Margin="5" VerticalContentAlignment="Center" FontSize="15" Grid.Row="0" Grid.Column="3" ItemsSource="{Binding   Flight.registeredPilotObj}" DisplayMemberPath="name" Height="40"  SelectedItem="{Binding Flight.pilotObj}"></ComboBox>
+            <ComboBox Margin="5" VerticalContentAlignment="Center" FontSize="15" Grid.Row="1" Grid.Column="3" Height="40" ItemsSource="{Binding Flight.registeredEscortObj}" DisplayMemberPath="name" SelectedItem="{Binding Flight.escortObj}" ></ComboBox>
+            <TextBox IsReadOnly="True" VerticalContentAlignment="Center" Margin="5" Grid.Row="2" Height="30"  Grid.Column="3" Text="{Binding Flight.meetDate}" ></TextBox>
+            <TextBox IsReadOnly="True" VerticalContentAlignment="Center" Margin="5" Grid.Row="3" Height="30" Grid.Column="3" Text="{Binding Flight.startDate}" ></TextBox>
+            <TextBox Margin="5" IsReadOnly="True" VerticalContentAlignment="Center" Height="30" Grid.Row="4" Grid.Column="3" Text="{Binding Flight.customerCount}"></TextBox>
 
-
-
-            <TextBox IsReadOnly="True" VerticalContentAlignment="Center" Margin="5" Grid.Row="0" Height="30"  Grid.Column="3" Text="{Binding Flight.meetDate}" ></TextBox>
-            <TextBox IsReadOnly="True" VerticalContentAlignment="Center" Margin="5" Grid.Row="1" Height="30" Grid.Column="3" Text="{Binding Flight.startDate}" ></TextBox>
-
-            <ComboBox Margin="5" VerticalContentAlignment="Center" FontSize="15" Grid.Row="2" Grid.Column="3" ItemsSource="{Binding   Flight.registeredPilotObj}" DisplayMemberPath="name" Height="40" SelectedItem="{Binding Flight.pilotObj}"></ComboBox>
-            <ComboBox Margin="5" VerticalContentAlignment="Center" FontSize="15" Grid.Row="3" Grid.Column="3" Height="40" ItemsSource="{Binding Flight.registeredEscortObj}" DisplayMemberPath="name" SelectedItem="{Binding Flight.escortObj}" ></ComboBox>
 
         </Grid>
 

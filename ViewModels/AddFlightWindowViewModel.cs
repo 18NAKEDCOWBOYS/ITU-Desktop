@@ -28,7 +28,7 @@ namespace ITU_Desktop.ViewModels
 
         private async void AddFlight()
         {
-            string json = JsonConvert.SerializeObject(new
+            object NewFlight = new
             {
                 registeredEscortIds = new List<int>(),
                 registeredPilotIds = new List<int>(),
@@ -42,7 +42,9 @@ namespace ITU_Desktop.ViewModels
                 startDate = Flight.startDate,
                 customerPhone = Flight.customerPhone,
                 description = Flight.description
-            });
+            };
+
+            string json = JsonConvert.SerializeObject(NewFlight);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 

@@ -29,6 +29,8 @@ namespace ITU_Desktop.ViewModels
 
         private ObservableCollection<Event> _flightsObj;
 
+        public List<EventType> EventTypesObj { get; set; }
+
         public ObservableCollection<Event> FlightsObj
         {
             get => _flightsObj;
@@ -76,7 +78,7 @@ namespace ITU_Desktop.ViewModels
         {
             if (SelectedFlight.id != null)
             {
-                AssignCrewWindow = new AssignCrewWindow(CloseAssignCrewWindowCommand, SelectedFlight);
+                AssignCrewWindow = new AssignCrewWindow(CloseAssignCrewWindowCommand, SelectedFlight, EventTypesObj);
                 AssignCrewWindow.Show();
             }
         }
@@ -85,17 +87,16 @@ namespace ITU_Desktop.ViewModels
         {
             if (SelectedFlight.id!=null)
             {
-                CustomizeFlightWindow = new CustomizeFlightWindow(CloseCustomizeFlightWindowCommand, SelectedFlight);
+                CustomizeFlightWindow = new CustomizeFlightWindow(CloseCustomizeFlightWindowCommand, SelectedFlight, EventTypesObj);
                 CustomizeFlightWindow.Show();
             }
         }
         private void OpenAddFlightWindow()
         {
-            if (SelectedFlight.id != null)
-            {
+
                 AddFlightWindow = new AddFlightWindow(CloseAddFlightWindowCommand);
                 AddFlightWindow.Show();
-            }
+            
         }
         private async void RemoveFlight()
         {
@@ -140,13 +141,13 @@ namespace ITU_Desktop.ViewModels
             string eventTypes = await _client.GetStringAsync(@"https://ituapi.herokuapp.com/event-types");
             FlightsObj = JsonConvert.DeserializeObject<ObservableCollection<Event>>(flights);
             List<User> usersObj = JsonConvert.DeserializeObject<List<User>>(users);
-            List<EventType> eventTypesObj = JsonConvert.DeserializeObject<List<EventType>>(eventTypes);
+            EventTypesObj = JsonConvert.DeserializeObject<List<EventType>>(eventTypes);
 
             foreach (Event flight in FlightsObj)
             {
                 flight.pilotObj = usersObj.Find(x => x.id == flight.pilotId); 
                 flight.escortObj = usersObj.Find(x => x.id == flight.escortId);
-                flight.eventTypeObj = eventTypesObj.Find(x => x.id == flight.eventType);
+                flight.eventTypeObj = EventTypesObj.Find(x => x.id == flight.eventType);
 
                 flight.registeredEscortObj = new List<User>();
                 flight.registeredPilotObj = new List<User>();

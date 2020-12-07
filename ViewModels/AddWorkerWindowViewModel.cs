@@ -28,6 +28,7 @@ namespace ITU_Desktop.ViewModels
 
         private async void AddWorker()
         {
+
             string json = JsonConvert.SerializeObject(new
             {
                 name = Worker.name,

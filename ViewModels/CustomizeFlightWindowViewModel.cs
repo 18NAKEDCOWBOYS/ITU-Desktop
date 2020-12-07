@@ -15,24 +15,32 @@ namespace ITU_Desktop.ViewModels
     {
         public ICommand CloseCustomizeFlightWindowCommand { get; }
         public ICommand CustomizeFlightCommand { get; }
-
+        public List<EventType> EventTypesObj { get; set; }
         public Event Flight { get; set; }
-        public CustomizeFlightWindowViewModel(ICommand closeCustomizeFlightWindowCommand, Event flight)
+        public CustomizeFlightWindowViewModel(ICommand closeCustomizeFlightWindowCommand, Event flight, List<EventType> eventTypesObj)
         {
             CloseCustomizeFlightWindowCommand = closeCustomizeFlightWindowCommand;
-            CustomizeFlightCommand=new RelayCommand(CustomizeFlight);
+            EventTypesObj = eventTypesObj;
+            CustomizeFlightCommand =new RelayCommand(CustomizeFlight);
             Flight = flight;
         }
 
         private async void CustomizeFlight()
         {
+            int? eventType = null;
+
+            if (Flight.eventTypeObj!= null)
+            {
+                eventType = Flight.eventTypeObj.id;
+            }
+
             string json = JsonConvert.SerializeObject(new
             {
                 escortId=Flight.escortId,
                 pilotId=Flight.pilotId,
                 registeredEscortIds=Flight.registeredEscortIds,
                 registeredPilotIds=Flight.registeredPilotIds,
-                eventType = Flight.eventType,
+                eventType = eventType,
                 customerCount = Flight.customerCount,
                 meetPoint = Flight.meetPoint,
                 startPoint = Flight.startPoint,
